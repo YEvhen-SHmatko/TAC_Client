@@ -1,0 +1,62 @@
+{
+  "name": "TAC_Client", 
+  "author": "Yevhen Shmatko <yevhen.shmatko@gmail.com>",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "client",
+  "keywords": [
+    "React.js"
+  ],
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.9.10",
+    "axios": "^0.19.2",
+    "gh-pages": "^2.2.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-material-ui-form-validator": "^2.0.10",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-transition-group": "^4.3.0",
+    "typeface-roboto": "^0.0.75"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "prenetlify": "npm run build",
+    "netlify": "netlify deploy -d build --prod"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YEvhen-SHmatko/TAC_Client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YEvhen-SHmatko/TAC_Client/issues"
+  }
+}
