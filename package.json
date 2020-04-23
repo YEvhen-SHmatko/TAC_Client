@@ -1,11 +1,12 @@
 {
-  "name": "TAC_Client", 
+  "name": "TAC_Client",
   "author": "Yevhen Shmatko <yevhen.shmatko@gmail.com>",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "client",
   "keywords": [
-    "React.js"
+    "React.js",
+    "Material-UI"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
