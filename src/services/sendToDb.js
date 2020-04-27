@@ -20,9 +20,16 @@ export const login = (url, data) => {
   const credentials = btoa(username + ':' + password);
   const basicAuth = 'Basic ' + credentials;
   CONFIG.headers['Authorization'] = basicAuth;
-  const body = {};
-  return axios.post(`${URL}${url}`, body, CONFIG);
+  return axios.post(`${URL}${url}`, {}, CONFIG);
 };
-export const confirm = (url, body = {}) => {
-  return axios.post(`${URL}${url}`, body, CONFIG);
+export const current = (url, token) => {
+  const username = 'kery';
+  const password = 'token';
+  const credentials = btoa(username + ':' + password);
+  const basicAuth = 'Basic ' + credentials;
+  CONFIG.headers['Authorization'] = basicAuth;
+  return axios.post(`${URL}/auth/current`, {}, CONFIG);
+};
+export const confirm = url => {
+  return axios.post(`${URL}${url}`, {}, CONFIG);
 };

@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -5,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import * as SEND from '../../../services/sendToDb';
-
+import * as LS from '../../../services/localStorage';
+dotenv.config();
 const INIT_STATE = {
   formData: {
     username: 'test',
@@ -41,6 +43,14 @@ export default class SignInSection extends Component {
   state = {
     ...INIT_STATE,
   };
+  componentDidMount() {
+    const token = LS.get('token');
+    const pathname = '/auth/current';
+    if (token) {
+      SEND.current(pathname, token);
+    }
+  }
+
   handleChange = event => {
     const { name, value } = event.target;
     if (name === 'username') this.validationEmpty(name, value);
@@ -75,7 +85,7 @@ export default class SignInSection extends Component {
       .then(res => {
         if (res.data.error) throw res.data.error;
         if (!res.data.success) throw res.data.message;
-        console.log(res);
+        if (res.data.token) LS.set('token', res.data.token);
       })
       .catch(alert);
   };
