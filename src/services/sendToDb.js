@@ -16,6 +16,13 @@ export const register = (url, data) => {
   return axios.post(`${URL}${url}`, body, CONFIG);
 };
 export const login = (url, data) => {
-  const body = JSON.stringify(data);
+  const { username, password } = data;
+  const credentials = btoa(username + ':' + password);
+  const basicAuth = 'Basic ' + credentials;
+  CONFIG.headers['Authorization'] = basicAuth;
+  const body = {};
+  return axios.post(`${URL}${url}`, body, CONFIG);
+};
+export const confirm = (url, body = {}) => {
   return axios.post(`${URL}${url}`, body, CONFIG);
 };
