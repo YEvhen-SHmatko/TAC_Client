@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import * as SEND from '../../services/sendToDb';
-
+import * as SEND from '../../../services/sendToDb';
 const INIT_STATE = {
   formData: {
     username: 'test',
+    email: 'tac-app@meta.ua',
     password: 'test123',
   },
-
   disableSabmit: false,
   errors: {
     username: {
+      text: '',
+      bool: null,
+    },
+    email: {
       text: 'You have entered an invalid email address!',
       bool: null,
     },
@@ -24,7 +27,7 @@ const INIT_STATE = {
     },
   },
 };
-export default class SignInSection extends Component {
+export default class SignUpSection extends Component {
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -43,6 +46,7 @@ export default class SignInSection extends Component {
   };
   handleChange = event => {
     const { name, value } = event.target;
+    if (name === 'email') this.validationEmail(value);
     if (name === 'username') this.validationEmpty(name, value);
     if (name === 'password') this.validationEmpty(name, value);
     this.disableSabmit();
@@ -58,6 +62,13 @@ export default class SignInSection extends Component {
     const { errors } = this.state;
     this.setState({ errors: { ...errors, [key]: { ...errors[key], bool } } });
   };
+  validationEmail = email => {
+    // eslint-disable-next-line no-useless-escape
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const bool = email.match(mailformat) ? false : true;
+    const { errors } = this.state;
+    this.setState({ errors: { ...errors, email: { ...errors.email, bool } } });
+  };
   disableSabmit = () => {
     const { errors } = this.state;
     const disabled =
@@ -68,10 +79,10 @@ export default class SignInSection extends Component {
   };
   handleSubmit = event => {
     event.preventDefault();
-    const { username, password } = this.state.formData;
-    const { path } = this.props.match;
-    const body = { username, password };
-    SEND.login(path, body)
+    const { username, email, password } = this.state.formData;
+    const { pathname } = this.props.location;
+    const body = { username, email, password };
+    SEND.register(pathname, body)
       .then(res => {
         if (res.data.error) throw res.data.error;
         console.log(res);
@@ -84,15 +95,29 @@ export default class SignInSection extends Component {
         <Grid container spacing={2} justify="center" alignItems="center">
           <Grid item xs={12}>
             <TextField
+              autoComplete="username"
               variant="outlined"
               required
               fullWidth
               id="username"
-              label="Name/Email Address"
+              name="username"
               value={this.state.formData.username}
               onChange={this.handleChange}
-              name="username"
-              autoComplete="username"
+              label="Name"
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              value={this.state.formData.email}
+              onChange={this.handleChange}
+              name="email"
+              autoComplete="email"
             />
           </Grid>
           <Grid item xs={12}>
@@ -118,14 +143,14 @@ export default class SignInSection extends Component {
                   variant="contained"
                   color="primary"
                 >
-                  Login
+                  Sign Up
                 </Button>
               </Grid>
             </Grid>
             <Grid container justify="flex-end">
               <Grid item>
-                <NavLink to="/auth/register" className="auth-link" replace>
-                  You don't account? Sign up
+                <NavLink to="/auth/login" className="auth-link" replace>
+                  Already have an account? Sign in
                 </NavLink>
               </Grid>
             </Grid>
