@@ -47,7 +47,14 @@ export default class SignInSection extends Component {
     const token = LS.get('token');
     const pathname = '/auth/current';
     if (token) {
-      SEND.current(pathname, token);
+      SEND.validationToken(pathname, token)
+        .then(res => {
+          if (res.data.tokenIsValid) {
+            const { history } = this.props;
+            history.replace('/');
+          }
+        })
+        .catch(alert);
     }
   }
 

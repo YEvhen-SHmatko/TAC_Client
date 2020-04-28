@@ -19,16 +19,19 @@ export const login = (url, data) => {
   const { username, password } = data;
   const credentials = btoa(username + ':' + password);
   const basicAuth = 'Basic ' + credentials;
-  CONFIG.headers['Authorization'] = basicAuth;
-  return axios.post(`${URL}${url}`, {}, CONFIG);
+  const newConfig = JSON.parse(JSON.stringify(CONFIG));
+  newConfig.headers['Authorization'] = basicAuth;
+  return axios.post(`${URL}${url}`, {}, newConfig);
 };
 export const current = (url, token) => {
-  const username = 'kery';
-  const password = 'token';
-  const credentials = btoa(username + ':' + password);
-  const basicAuth = 'Basic ' + credentials;
-  CONFIG.headers['Authorization'] = basicAuth;
-  return axios.post(`${URL}/auth/current`, {}, CONFIG);
+  const newConfig = JSON.parse(JSON.stringify(CONFIG));
+  newConfig.headers['x-access-token'] = token;
+  return axios.post(`${URL}/auth/current`, {}, newConfig);
+};
+export const validationToken = (url, token) => {
+  const newConfig = JSON.parse(JSON.stringify(CONFIG));
+  newConfig.headers['x-access-token'] = token;
+  return axios.post(`${URL}/auth/validationToken`, {}, newConfig);
 };
 export const confirm = url => {
   return axios.post(`${URL}${url}`, {}, CONFIG);
