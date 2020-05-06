@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import * as SEND from '../../services/sendToDb';
+import * as SEND from '../../../services/sendToDb';
 const INIT_STATE = {
   formData: {
     username: 'test',
-    email: 'test@test.test',
+    email: 'tac-app@meta.ua',
     password: 'test123',
   },
   disableSabmit: false,
@@ -80,9 +80,9 @@ export default class SignUpSection extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, email, password } = this.state.formData;
-    const { path } = this.props.match;
+    const { pathname } = this.props.location;
     const body = { username, email, password };
-    SEND.register(path, body)
+    SEND.register(pathname, body)
       .then(res => {
         if (res.data.error) throw res.data.error;
         console.log(res);
@@ -90,7 +90,6 @@ export default class SignUpSection extends Component {
       .catch(alert);
   };
   render() {
-    console.log(this.props);
     return (
       <form noValidate onSubmit={this.handleSubmit}>
         <Grid container spacing={2} justify="center" alignItems="center">
