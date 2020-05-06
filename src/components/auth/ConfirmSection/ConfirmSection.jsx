@@ -33,18 +33,16 @@ const Link = props => {
   );
 };
 const INIT_STATE = {
-  title: 'Test',
-  to: 'Test',
-  text: 'Test',
+  title: 'Press the confirm button',
+  to: '/auth/confirm',
+  text: 'Confirm',
 };
 class ConfirmSection extends Component {
   state = { ...INIT_STATE };
   componentDidMount() {
     const { pathname } = this.props.location;
-    console.log(pathname);
     SEND.confirm(pathname)
       .then(res => {
-        console.log(res.data);
         if (res.data.confirm) {
           this.setState({
             title: 'Email Confirmed',
@@ -52,6 +50,7 @@ class ConfirmSection extends Component {
             text: 'Go to login',
           });
         } else {
+          console.log(pathname);
           this.setState({
             title: `Email don't confirmed`,
             to: pathname,
@@ -64,6 +63,7 @@ class ConfirmSection extends Component {
 
   render() {
     const { title, to, text } = this.state;
+    console.log('to', to);
     return (
       <Grid container spacing={2} justify="center" alignItems="center">
         <Grid item xs={12}>

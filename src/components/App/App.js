@@ -1,54 +1,31 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import PAGE from '../../Page/PAGE';
-import SignUpSection from '../auth/SignUpSection/SignUpSection';
-import ConfirmSection from '../auth/ConfirmSection/ConfirmSection';
-import SignInSection from '../auth/SignInSection/SignInSection';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import routes from '../../routes/routes';
+const Loader = <div>...</div>;
 const App = () => {
-  let history = useHistory();
-  let location = useLocation();
-  let match = useRouteMatch();
   return (
     <Container maxWidth="sm">
       <Switch>
-        <Route exact path="/">
-          Home
-        </Route>
-        <Route path="/auth/register">
-          <PAGE
-            children={
-              <SignUpSection
-                history={history}
-                location={location}
-                match={match}
-              />
-            }
+        <Suspense fallback={Loader}>
+          <Route
+            exact
+            path={routes.HomePage.path}
+            component={routes.HomePage.component}
           />
-        </Route>
-        <Route path="/auth/confirm">
-          <PAGE
-            children={
-              <ConfirmSection
-                history={history}
-                location={location}
-                match={match}
-              />
-            }
+          <Route
+            path={routes.SignUpPage.path}
+            component={routes.SignUpPage.component}
           />
-        </Route>
-        <Route path="/auth/login">
-          <PAGE
-            children={
-              <SignInSection
-                history={history}
-                location={location}
-                match={match}
-              />
-            }
+          <Route
+            path={routes.SignInPage.path}
+            component={routes.SignInPage.component}
           />
-        </Route>
+          <Route
+            path={routes.AuthConfirmPage.path}
+            component={routes.AuthConfirmPage.component}
+          />
+        </Suspense>
       </Switch>
     </Container>
   );

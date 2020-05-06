@@ -2,41 +2,33 @@ import React from 'react';
 const HomePage = React.lazy(() =>
   import('../Page/HomePage' /* webpackChunkName: "HomePage" */),
 );
-const AboutPage = React.lazy(() =>
-  import('../Page/AboutPage' /* webpackChunkName: "AboutPage" */),
+const SignUpPage = React.lazy(() =>
+  import('../Page/SignUpPage' /* webpackChunkName: "SignUpPage" */),
 );
-const LoginPage = React.lazy(() =>
-  import('../Page/LoginPage' /* webpackChunkName: "AboutPage" */),
+const SignInPage = React.lazy(() =>
+  import('../Page/SignInPage' /* webpackChunkName: "SignInPage" */),
 );
-const CreatePage = React.lazy(() =>
-  import('../Page/CreatePage' /* webpackChunkName: "CreatePage" */),
+const AuthConfirmPage = React.lazy(() =>
+  import('../Page/AuthConfirmPage' /* webpackChunkName: "AuthConfirmPage" */),
 );
 const repositori = '';
 const routes = {
   HomePage: {
-    lable: 'Home',
     path: repositori + '/',
     component: HomePage,
   },
-  AboutPage: {
-    lable: 'About',
-    path: repositori + '/about',
-    component: AboutPage,
+  SignUpPage: {
+    path: repositori + '/auth/register',
+    component: SignUpPage,
   },
-  LoginPage: {
+  SignInPage: {
     lable: 'Login',
     path: repositori + '/auth/login',
-    component: LoginPage,
+    component: SignInPage,
   },
-  CreatePage: {
-    lable: 'Create',
-    path: repositori + '/create',
-    component: CreatePage,
-  },
-  AuthConfirm: {
-    lable: 'AuthConfirm',
-    path: repositori + '/create',
-    component: CreatePage,
+  AuthConfirmPage: {
+    path: repositori + '/auth/confirm',
+    component: AuthConfirmPage,
   },
 };
 export default routes;
