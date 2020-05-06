@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import * as SEND from '../../../services/sendToDb';
-
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   title: {
@@ -50,7 +49,6 @@ class ConfirmSection extends Component {
             text: 'Go to login',
           });
         } else {
-          console.log(pathname);
           this.setState({
             title: `Email don't confirmed`,
             to: pathname,
@@ -63,7 +61,6 @@ class ConfirmSection extends Component {
 
   render() {
     const { title, to, text } = this.state;
-    console.log('to', to);
     return (
       <Grid container spacing={2} justify="center" alignItems="center">
         <Grid item xs={12}>
