@@ -1,21 +1,34 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import Container from "@material-ui/core/Container";
-import SignUpPage from "../../Page/SignUpPage";
-import SignInPage from "../../Page/SignInPage";
-class App extends Component {
-  state = {};
-  render() {
-    return (
-      <Container maxWidth="sm">
-        <Switch>
-          <Route exact path="/" component={SignUpPage} />
-          <Route path="/auth/register" component={SignUpPage} />
-          <Route path="/auth/login" component={SignInPage} />
-        </Switch>
-      </Container>
-    );
-  }
-}
+import React, { Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import routes from '../../routes/routes';
+const Loader = <div>...</div>;
+const App = () => {
+  return (
+    <Container maxWidth="sm">
+      <Switch>
+        <Suspense fallback={Loader}>
+          <Route
+            exact
+            path={routes.HomePage.path}
+            component={routes.HomePage.component}
+          />
+          <Route
+            path={routes.SignUpPage.path}
+            component={routes.SignUpPage.component}
+          />
+          <Route
+            path={routes.SignInPage.path}
+            component={routes.SignInPage.component}
+          />
+          <Route
+            path={routes.AuthConfirmPage.path}
+            component={routes.AuthConfirmPage.component}
+          />
+        </Suspense>
+      </Switch>
+    </Container>
+  );
+};
 
 export default App;
